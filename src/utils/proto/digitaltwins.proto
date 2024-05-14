@@ -1,0 +1,434 @@
+syntax = "proto3";
+
+option csharp_namespace = "DigitalTwins.Server";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a stastic model info
+  rpc Conveyor (ConveyorRequest) returns (StasticModelReply);
+  rpc Equipment (EquipmentRequest) returns (StasticModelReply);
+  rpc Warehouse (WarehouseRequest) returns (StasticModelReply);
+  rpc Material (MaterialRequest) returns (StasticModelReply);
+  rpc Container (ContainerRequest) returns (StasticModelReply);
+  rpc Simulation (SimulationRequest) returns (SimulationReply);
+  rpc WorkFlow (WorkFlowRequest) returns (StasticModelReply);
+
+  rpc Mock(MockRequest) returns (MockReply);
+  rpc MockGoodsInfo(MockStateInfoRequest) returns (MockStateInfoReply);
+
+  rpc GetInitialModel(MockStateInfoRequest) returns  (StasticModelReply) ;
+  rpc CountWarehouse(CountRequest) returns (CountWarehouseReply);
+  rpc CountEquipment(CountRequest) returns (CountEquipmentReply);
+  rpc CountConveyor(CountRequest) returns (CountConveyorReply);
+  rpc CountProductionLine(CountRequest) returns (CountProductionLineReply);
+  rpc CountAgv(CountRequest) returns (CountAgvReply);
+
+  rpc SendTaskByAGV(SendTaskRequest) returns  (BaseModelReply) ;
+  
+  rpc GetAgvMap(AgvAgvMapRequest) returns  (BaseModelReply) ;
+  rpc GetAgvLocation(AgvLocationRequest) returns  (BaseModelReply) ;
+
+  rpc ModelStateSync(StateSynclRequest) returns  (BaseModelReply);
+
+	//twins统计
+	rpc TwinsAgvTaskCount(MockStateInfoRequest) returns (TwinsAgvTaskCountReply);
+	rpc TwinsWarehouseCount(MockStateInfoRequest) returns (TwinsWarehouseCountReply);
+	rpc TwinsStockMovementCount(MockStateInfoRequest) returns (TwinsStockMovementCountReply);
+}
+
+message StateSynclRequest {
+	string workflowNum = 1;
+	string num = 2;
+	int32 state = 3;
+}
+
+message AgvAgvMapRequest {
+   string workflowNum = 1; 
+   string region = 2;
+}
+message AgvLocationRequest {
+   string workflowNum = 1; 
+}
+
+message SendTaskRequest {
+	string workflowNum = 1;
+	int32 startX = 2;
+	int32 startY = 3;
+	int32 goalX = 4;
+	int32 goalY = 5;
+}
+message BaseModelReply {
+  int32 statusCode = 1;
+  string message = 2;
+  repeated string data = 3;  
+}
+// The request message 
+message ConveyorRequest {
+  string num = 1;
+  string name = 2;
+  string region = 3;
+  int64 posX = 4;
+  int64 posY = 5;
+  int32 direct = 6;
+  int32 turnCycleTime = 7;
+  int32 speed = 8;
+  int32 minSpeed = 9;
+  int32 maxSpeed = 10;  
+  int32 length = 11;
+  int32 width = 12;
+  int32 height = 13;
+  int32 power = 14;
+  int32 standbyPower = 15;
+  int32 minPower = 16;
+  int32 maxPower = 17;
+  int32 converyType = 18;  
+  int32 state = 19;
+  int32 materialCountPer = 20;
+  double batteryLevel = 21;
+  string note = 22;
+}
+
+// The response message 
+message StasticModelReply {
+  int32 statusCode = 1;
+  string message = 2;
+  repeated string data = 3;  
+}
+
+ // The request message 
+message EquipmentRequest {
+  string num = 1;
+  string name = 2;
+  string region = 3;
+  int64 posX = 4;
+  int64 posY = 5;
+  int32 direct = 6;
+  int32 cycleTime = 7;
+  int32 minCycleTime = 8;
+  int32 maxCycleTime = 9;  
+  int32 length = 10;
+  int32 width = 11;
+  int32 height = 12;
+  int32 power = 13;
+  int32 standbyPower = 14;
+  int32 minPower = 15;
+  int32 maxPower = 16;
+  int32 epuipmentType = 17; 
+  int32 state = 18;
+  int32 materialCountPer = 19;
+  int32 holdingTime = 20;
+  string note = 21;
+  int32 groupIndex = 22;
+
+}
+
+ // The request message 
+message WarehouseRequest {
+  string num = 1;
+  string name = 2;
+  string region = 3;
+  int64 posX = 4;
+  int64 posY = 5;
+  int32 direct = 6;
+  int32 cycleTime = 7;
+  int32 minCycleTime = 8;
+  int32 maxCycleTime = 9; 
+  int32 length = 10;
+  int32 width = 11;
+  int32 height = 12;
+  int32 power = 13;
+  int32 standbyPower = 14;
+  int32 minPower = 15;
+  int32 maxPower = 16;
+  int32 warehouseType = 17; 
+  int32 state = 18;
+  int32 unitCount = 19; 
+  int32 unitAlarmThreshold = 20; 
+  int32 materialCountPer = 21;
+  string note = 22;
+  int32 shelvesType = 23;
+  int32 warehouseRowCount = 24;
+  int32 warehouseColumnCount = 25;
+  int32 warehousingStrategy = 26;
+
+  int32 cellsWidth = 27;   //单个储位的  长宽高(mm)
+  int32 cellsHeight = 28;
+  int32 cellsLength = 29;
+
+  //RGV 的属性
+  int32 liftSpeed = 30;//抬降的速度 (mm/s)
+  int32 moveSpeed = 31;//移动速度 水平移动速度 (mm/s)
+}
+
+
+message MaterialRequest {
+  string num = 1;
+  string name = 2;
+  int32 length = 3;
+  int32 width = 4;
+  int32 height = 5;
+  string containerNum = 6;
+  string posNum = 7;
+  int32 weight = 8; 
+  int32 state = 9;
+  string note = 10;
+}
+
+message ContainerRequest {
+  string num = 1;
+  string name = 2;
+  int32 length = 3;
+  int32 width = 4;
+  int32 height = 5;
+  string containerNum = 6;
+  string posNum = 7;
+  int32 capacity = 8; 
+  int32 state = 9; 
+  string note = 10;
+}
+
+message SimulationRequest {
+	string workflowNum = 1;
+	string simulationType = 2;
+}
+
+enum ModelType
+{
+	modelTypeConvery = 0;
+	modelTypeEquipment = 1;
+	modelTypeWarehouse = 2;
+	modelTypeAGV = 3;
+}
+
+message WorkFlowRequest {
+	string workflowNum = 1;
+	message modelProperty{
+		string modelNum = 1;
+		int32 modelType = 2;   //ModelType ModelType = 2; ？
+		map<string, string> modelInfo = 3;
+	}
+	message FlowNodeInfo {
+		string modelNum = 1;
+		int32 outputStrategy = 2;
+		int32 outputLinkId = 3;
+		repeated string outputPortsModelNums = 4;
+		repeated int32 outputPortsStrategyValues = 5;
+		repeated int32 inputLinkIds = 6;
+		int32 transportMode = 7;// 运输方式 0=无 1=AGV运输  2=叉车运输  3=人 
+		string agvCoordCode = 8;
+		int32 agvInterfaceType = 9; //0=无 1=正进倒出  2=倒进正出
+	}
+	//地图点位Model
+	message agvMapInfo{
+		string code = 1;
+		string region = 2; //区域
+		int64 posX = 3;
+		int64 posY = 4;
+		int32 directFlag = 5; 
+		string note = 6;
+		int32 pointType=7; //点位类别   0=无   1=避让位
+	}
+	repeated modelProperty modelNode = 2;
+	repeated FlowNodeInfo flowNode = 3;
+	repeated agvMapInfo agvMapNode = 4;
+}
+
+
+message SimulationReply {
+	int32 statusCode = 1;
+	string message = 2;
+	int32 maxTaktTime = 3;
+	int32 maxProductPerDay = 4;
+	int32 maxPower = 5;
+	int32 reachMaxProductTime = 6;
+	map<string, int32> wipNeedUnitCount = 7;
+}
+
+message CountRequest {
+	string workflowNum = 1;
+	string num = 2;
+	string countType = 3;
+}
+ 
+message CountWarehouseReply {
+	int32 statusCode = 1;
+	string message = 2;
+	message warehouseInfo {
+		string name = 1;
+		int32 totalCapacity = 2;
+		int32 usedStorage = 3;
+		int32 vacancyRate = 4;
+		int32 inboundQuantity  = 5;
+		int32 outboundQuantity  = 6;
+		int32 averageResidenceTime = 7;
+		int32 availability = 8;
+		int32 powerCount = 9;
+	}
+	repeated warehouseInfo results = 3;
+}
+
+message CountEquipmentReply {
+	int32 statusCode = 1;
+	string message = 2;
+	message equipmentInfo {
+		string name = 1;
+		int32 materialQuantity = 2;
+		int32 scrapMaterialQuantity = 3;
+		int32 yieldRate  = 4;
+		int32 availability  = 5;
+		int32 failureRate = 6;
+		int32 powerCount = 7;
+		int32 averagePowerHourly = 8;
+	}
+	repeated equipmentInfo results = 3;
+}
+
+message CountConveyorReply {
+	int32 statusCode = 1;
+	string message = 2;
+	string name = 3;
+	int32 materialQuantity = 4;
+	int32 availability = 5;
+}
+
+message CountProductionLineReply {
+	int32 statusCode = 1;
+	string message = 2;
+	int32 inboundQuantity  = 3;
+	int32 outboundQuantity  = 4;
+	int32 prodLineTotal = 5;
+	int32 availability = 6;
+	int32 yieldRate= 7;
+	int32 vacancyRate = 8;
+	int32 powerCount = 9;
+}
+
+message CountAgvReply {
+	int32 statusCode = 1;
+	string message = 2;
+	message agvInfo {
+		string agvName = 1;
+		int32 availability = 2;
+		int32 loadRate = 3;
+		string goalName  = 4;
+		int32 taskFlow  = 5;
+		int32 agvState  = 6;
+		int32 batteryLevel  = 7;
+	}
+	repeated agvInfo results = 3;
+}
+
+
+message MockRequest {
+	string workflowNum = 1;
+	int32 mockType = 2; // 默认1 Mock 2 Twins
+	int32 mockState = 3;  //1 启动 2 暂停 3 停止 
+	int32 taktTime = 4;
+	int32 speedfactor = 5;
+	bool initialWarmup = 6;
+}
+
+message MockReply {
+	int32 statusCode = 1;
+	string message = 2;
+	string workflowNum = 3;
+	int32 mockState = 4;
+}
+
+message MockStateInfoRequest {
+	string workflowNum = 1;
+	int32 mockType = 2; // 默认1 Mock 2 Twins
+}
+
+
+enum ModelState
+{
+	idle = 0;
+	working = 1;
+	assembling= 2;
+	stop = 3;
+	pauseing = 4;
+	maintaining = 5;
+}
+
+message MockStateInfoReply {
+	int32 statusCode = 1;
+	string message = 2;
+	string workflowNum = 3;
+	int32 mockState = 4;
+	message MockGoodsInfo {
+		string goodsNum = 1;
+		string goodsState = 2;
+		int32 materialCount = 3;
+		string equipmentNum = 4;
+		int64  inTime = 5; 
+		int64  outTime = 6; 
+		ModelState equipmentState = 7;
+		int32 euqipmentCycleTime = 8;
+		int32 goodsType = 9;
+		int32 flowState = 10;
+		string materialNumStr = 11;
+		string warehouseLocation =12;
+		int32 goodsRunningStatus =13;
+		string nextEquipmentNum = 14; 
+		string rgvLoadTime = 15; 
+	}
+	repeated MockGoodsInfo results = 5;
+
+
+	message AgvInfo {
+		string agvNum = 1;
+		string currentCode = 2;
+		int32 currentX = 3;//当前坐标
+		int32 currentY = 4;
+		int32 agvState = 5; // 0停止中 1运行中  2充电中 
+		int32 direct = 6; // 1前(上), 2后(下) ,  4左,  8右 
+		int32 hasCargo = 7;
+		int32 actionType =8;//0:前进  1:后退 2:顺时针旋转90   3:逆时针旋转90  4:旋转180
+	    string region = 9;  //区域
+		string goodsNum = 10;  //运送物料编号
+		int64 inTime = 11;  //进入坐标的时间
+		string parksOnEquiment =12; //AGV 停靠的设备
+		double posX = 13;  //AGV x的坐标
+		double posY = 14;  //AGV y的坐标
+		double yaw = 15;   //AGV 角度
+		double battery = 16; //AGV 电量
+		int32  forkHeight = 17; //AGV 插臂高度
+	}
+	repeated AgvInfo agvResults = 6;
+}
+
+
+
+message TwinsAgvTaskCountReply {
+	message AgvTask {
+		string agvNum = 1;              //AGV名称
+		int32 taskCount = 2;            //任务数
+		int32 avgTime = 3;              //平均时长
+		int32 alarmTaskCount = 4;       //异常任务
+	}
+	repeated AgvTask agvTaskResults = 1;
+}
+
+message TwinsWarehouseCountReply {
+	message WareTrayStatus {
+		string warehouseId = 1;        //仓库名
+		int32 occupiedCount = 2;       //已使用库位数
+		int32 freeCount = 3;           //空余库位数
+		int32 totalCount = 4;          //总库位数
+	}
+	repeated WareTrayStatus wareTrayStatusResults = 1;
+}
+
+message TwinsStockMovementCountReply {
+	message StockMovement {
+		string warehouseId = 1;        //仓库名
+		string hour = 2;               //时间轴
+		int32 inboundQuantity = 3;     //入库数  
+		int32 outboundQuantity = 4;    //出库数 
+		int32 totalQuantity = 5;       //总出入库数
+	}
+	repeated StockMovement stockMovementResults = 1;
+}
