@@ -3,14 +3,19 @@
   background: url(../assets/images/bg.png) no-repeat;
 }
 #header {
-  background: url(../assets/images/仿真_content-tit-icon.png) no-repeat;
+  background: url(../assets/images/报表_1.png) no-repeat;
   color: #fff;
   width: 100%;
-  height: 40px;
-  line-height: 30px;
-  font-size: 18px;
-  float: left;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  background-size: cover;
+  background-position: center center;
 }
 .title {
   padding-left: 35px;
+}
+.common{
+  height: 100%;
+
 }

@@ -70,7 +70,7 @@ export default {
       const request = new MockStateInfoRequest();
       request.setWorkflownum("2423423434");
       request.setMocktype("2");
-      const client = new GreeterClient("https://localhost:5001", null, null);
+      const client = new GreeterClient("http://localhost:5001", null, null);
       client.twinsAgvTaskCount(request, {}, (err, response) => {
         if (err) {
           console.error("Error:", err.message);
@@ -314,9 +314,9 @@ export default {
     callGrpcService() {
       const request = new AgvAgvMapRequest();
       request.setWorkflownum("TestV2");
-      request.serializeBinary("AGV编号");
-      request.setRegion("1");
-      const client = new GreeterClient("https://localhost:5001", null, null);
+      request.serializeBinary("");
+      // request.setRegion("1");
+      const client = new GreeterClient("http://localhost:5001", null, null);
 
       console.log(client, "client");
       client.countAgv(request, {}, (err, response) => {
