@@ -122,7 +122,10 @@ export default {
   color: aliceblue;
 }
 .theadcss {
-  font-size: 20px;
+  font-size: 25px;
   color: #6ed6fb;
+}
+tbody {
+  font-size: 20px;
 }
 </style>

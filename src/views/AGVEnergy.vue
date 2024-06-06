@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       agvTaskResults: [],
+      resultsList: [],
       arrlist: [],
       domdev: {},
       myChart: {},
@@ -53,29 +54,32 @@ export default {
           console.error("Error:", err.message);
         } else {
           let gridPointData = JSON.parse(JSON.stringify(response.toObject()));
-          if (this.arrlist.length > 0) {
-            this.arrlist.forEach((vv) => {
-              gridPointData.resultsList.forEach((item) => {
-                if (vv == item["name"]) {
-                  this.agvTaskResults.push(item);
-                }
-              });
-            });
-          }
-          if (this.agvTaskResults.length == 0) {
-            this.agvTaskResults = gridPointData.resultsList;
-            this.agvTaskResults.forEach((parent) => {
+          
+          if (this.resultsList.length == 0) {
+            this.resultsList = gridPointData.resultsList;
+            this.resultsList.forEach((parent) => {
               parent.data = [];
               parent.data.push(parent["powercount"]);
             });
           } else {
-            this.agvTaskResults.forEach((parent) => {
+            this.resultsList.forEach((parent) => {
               gridPointData.resultsList.forEach((item) => {
                 if (parent.name == item.name) {
                   parent.data.push(item["powercount"]);
                 }
               });
             });
+          }
+          if (this.arrlist.length > 0) {
+            this.arrlist.forEach((vv) => {
+              this.resultsList.forEach((item) => {
+                if (vv == item["name"]) {
+                  this.agvTaskResults.push(item);
+                }
+              });
+            });
+          }else{
+            this.agvTaskResults = this.resultsList;
           }
           console.log("this.agvTaskResults", this.agvTaskResults);
           this.loopEveryFiveSeconds();
@@ -145,7 +149,7 @@ export default {
           // boundaryGap: false,
           axisLabel: {
             color: "#FFF",
-            fontSize: 20,
+            fontSize: 25,
           },
           data: ["10min", "20min", "30min", "40min", "50min", "60min"],
         },
@@ -153,7 +157,7 @@ export default {
           type: "value",
           axisLabel: {
             color: "#FFF",
-            fontSize: 20,
+            fontSize: 25,
           },
         },
         series: sdata,

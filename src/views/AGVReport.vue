@@ -95,7 +95,7 @@ export default {
             style: {
               text: "暂无数据",
               textAlign: "center",
-              fontSize: 20,
+              fontSize: 25,
               fill: "#fff",
             },
           },
@@ -106,7 +106,7 @@ export default {
             type: "category",
             data: xdata,
             axisLabel: {
-              fontSize: 20,
+              fontSize: 25,
               color: "#FFF",
               interval: 0,
               // rotate: "40",
@@ -117,7 +117,7 @@ export default {
           {
             type: "value",
             axisLabel: {
-              fontSize: 20,
+              fontSize: 25,
               color: "#FFF",
             },
           },

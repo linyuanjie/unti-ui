@@ -45,17 +45,17 @@ export default {
           console.error("Error:", err.message);
         } else {
           let gridPointData = JSON.parse(JSON.stringify(response.toObject()));
-          if (this.arrlist.length > 0) {
-            this.arrlist.forEach((vv) => {
-              gridPointData.resultsList.forEach((item) => {
-                if (vv == item["name"]) {
-                  this.agvTaskResults.push(item);
-                }
-              });
-            });
-          } else {
+          // if (this.arrlist.length > 0) {
+          //   this.arrlist.forEach((vv) => {
+          //     gridPointData.resultsList.forEach((item) => {
+          //       if (vv == item["name"]) {
+          //         this.agvTaskResults.push(item);
+          //       }
+          //     });
+          //   });
+          // } else {
             this.agvTaskResults = gridPointData.resultsList;
-          }
+          // }
           this.agvTaskResults.forEach((item) => {
             item["name"] = item["name"] || 0;
             item["totalcapacity"] = item["totalcapacity"] || 0;
@@ -99,6 +99,7 @@ export default {
         },
         legend: {
           textStyle: {
+            fontSize: 15,
             color: "#ffF",
           },
           data: ["出库量", "入库量", "容量"],
@@ -112,7 +113,7 @@ export default {
             },
             axisLabel: {
               color: "#FFF",
-              fontSize: 20,
+              fontSize: 25,
             },
           },
         ],
@@ -123,7 +124,7 @@ export default {
             axisLabel: {
               // formatter: "{value} ml",
               color: "#FFF",
-              fontSize: 20,
+              fontSize: 25,
             },
           },
           {
@@ -132,7 +133,7 @@ export default {
             axisLabel: {
               // formatter: "{value} °C",
               color: "#FFF",
-              fontSize: 20,
+              fontSize: 25,
             },
           },
         ],
