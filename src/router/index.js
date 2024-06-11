@@ -7,7 +7,9 @@ import AGVTasks from "../views/AGVTasks.vue";
 import AGVOutIn from "../views/AGVOutIn.vue";
 import AGVFillUp from "../views/AGVFillUp.vue";
 import AGVEnergy from "../views/AGVEnergy.vue";
-import AGVmodel1 from "../views/AGVmodel1.vue";
+import Report1 from "../views/Report1.vue";
+import Report2 from "../views/Report2.vue";
+import Report3 from "../views/Report3.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -22,9 +24,19 @@ const routes = [
     component: AGVmodel,
   },
   {
-    path: "/AGVmodel",
-    name: "AGVmodel",
-    component: AGVmodel,
+    path: "/Report1",
+    name: "Report1",
+    component: Report1,
+  },
+  {
+    path: "/Report2",
+    name: "Report2",
+    component: Report2,
+  },
+  {
+    path: "/Report3",
+    name: "Report3",
+    component: Report3,
   },
   {
     path: "/AGVReport",

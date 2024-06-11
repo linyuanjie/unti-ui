@@ -32,6 +32,7 @@ service Greeter {
 
   rpc ModelStateSync(StateSynclRequest) returns  (BaseModelReply);
 
+	rpc TwinsWarehouseBayStatus(MockStateInfoRequest) returns (TwinsWarehouseBayStatusReply);
 	//twins统计
 	rpc TwinsAgvTaskCount(MockStateInfoRequest) returns (TwinsAgvTaskCountReply);
 	rpc TwinsWarehouseCount(MockStateInfoRequest) returns (TwinsWarehouseCountReply);
@@ -396,11 +397,22 @@ message MockStateInfoReply {
 		double yaw = 15;   //AGV 角度
 		double battery = 16; //AGV 电量
 		int32  forkHeight = 17; //AGV 插臂高度
+		string goodsTypeStr = 18; //物料类型
+		string agvStateStr = 19; // Agv状态
 	}
 	repeated AgvInfo agvResults = 6;
 }
 
-
+message TwinsWarehouseBayStatusReply{
+	message WarehouseBayStatus {
+		string bayId = 1;         //库位id
+		string materialType = 2;  //物料类型
+		string materialName = 3;  //物料名称
+		int32 quantity = 4;       //物料数量
+		bool occupied = 5;        //是否有物料
+	}
+	repeated WarehouseBayStatus warehouseBayStatusResults = 1;
+}
 
 message TwinsAgvTaskCountReply {
 	message AgvTask {
@@ -423,12 +435,13 @@ message TwinsWarehouseCountReply {
 }
 
 message TwinsStockMovementCountReply {
+	string warehouseId = 1;        //仓库名
+	int32 inboundQuantity = 2;     //入库数  
+	int32 outboundQuantity = 3;    //出库数 
 	message StockMovement {
-		string warehouseId = 1;        //仓库名
-		string hour = 2;               //时间轴
-		int32 inboundQuantity = 3;     //入库数  
-		int32 outboundQuantity = 4;    //出库数 
-		int32 totalQuantity = 5;       //总出入库数
+		string hour = 1;     //时间轴
+		int32 inStockCount = 2;
+ 		int32 outStockCount = 3;         
 	}
-	repeated StockMovement stockMovementResults = 1;
+	repeated StockMovement stockMovementResults = 4;
 }

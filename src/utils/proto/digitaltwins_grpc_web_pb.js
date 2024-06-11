@@ -1233,6 +1233,67 @@ proto.greet.GreeterPromiseClient.prototype.modelStateSync =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.greet.MockStateInfoRequest,
+ *   !proto.greet.TwinsWarehouseBayStatusReply>}
+ */
+const methodDescriptor_Greeter_TwinsWarehouseBayStatus = new grpc.web.MethodDescriptor(
+  '/greet.Greeter/TwinsWarehouseBayStatus',
+  grpc.web.MethodType.UNARY,
+  proto.greet.MockStateInfoRequest,
+  proto.greet.TwinsWarehouseBayStatusReply,
+  /**
+   * @param {!proto.greet.MockStateInfoRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.greet.TwinsWarehouseBayStatusReply.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.greet.MockStateInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.greet.TwinsWarehouseBayStatusReply)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.greet.TwinsWarehouseBayStatusReply>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.greet.GreeterClient.prototype.twinsWarehouseBayStatus =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/greet.Greeter/TwinsWarehouseBayStatus',
+      request,
+      metadata || {},
+      methodDescriptor_Greeter_TwinsWarehouseBayStatus,
+      callback);
+};
+
+
+/**
+ * @param {!proto.greet.MockStateInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.greet.TwinsWarehouseBayStatusReply>}
+ *     Promise that resolves to the response
+ */
+proto.greet.GreeterPromiseClient.prototype.twinsWarehouseBayStatus =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/greet.Greeter/TwinsWarehouseBayStatus',
+      request,
+      metadata || {},
+      methodDescriptor_Greeter_TwinsWarehouseBayStatus);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.greet.MockStateInfoRequest,
  *   !proto.greet.TwinsAgvTaskCountReply>}
  */
 const methodDescriptor_Greeter_TwinsAgvTaskCount = new grpc.web.MethodDescriptor(
