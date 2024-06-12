@@ -78,7 +78,7 @@ export default {
 }
 .title {
   font-size: 20px;
-  padding-left: 10px;
+  padding-left: 0px;
 }
 .tabledev {
   width: 100%;

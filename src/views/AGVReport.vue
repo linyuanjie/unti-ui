@@ -45,7 +45,7 @@ export default {
     callGrpcService() {
       this.agvTaskResults = [];
       const request = new CountRequest();
-      request.setWorkflownum(this.jsonData[0].sceneName);
+      request.setWorkflownum("AGV_1_001");
       request.serializeBinary("");
       // request.setRegion("1");
       const client = new GreeterClient("http://localhost:5001", null, null);
@@ -108,7 +108,7 @@ export default {
             axisLabel: {
               fontSize: 25,
               color: "#FFF",
-              interval: 0,
+              // interval: 0,
               // rotate: "40",
             },
           },

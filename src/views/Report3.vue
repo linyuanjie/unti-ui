@@ -162,23 +162,15 @@ export default {
           {
             name: "出库量",
             type: "bar",
+            barWidth:'100%',
             itemStyle: { color: "#744ef5" },
-            // tooltip: {
-            //   valueFormatter: function (value) {
-            //     return value + " ml";
-            //   },
-            // },
             data: outNum,
           },
           {
             name: "入库量",
             type: "bar",
+            barWidth:'100%',
             itemStyle: { color: "#7ac61c" },
-            // tooltip: {
-            //   valueFormatter: function (value) {
-            //     return value + " ml";
-            //   },
-            // },
             data: inNum,
           },
           {
@@ -225,7 +217,7 @@ export default {
   background-size: cover;
 }
 .title {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 ::v-deep canvas {
   padding-bottom: 20px !important;

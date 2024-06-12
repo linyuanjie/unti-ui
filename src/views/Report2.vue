@@ -126,7 +126,7 @@ export default {
             ],
             label: {
               show: true,
-              // color: "#FFF",
+              color: "#FFF",
               textStyle: {
                 fontSize: 20,
               },
@@ -153,7 +153,7 @@ export default {
   background-size: cover;
 }
 .title {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 ::v-deep canvas {
   padding-bottom: 20px !important;

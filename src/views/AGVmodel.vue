@@ -209,7 +209,7 @@ export default {
             },
             axisLabel: {
               color: "FFF", // x轴字体颜色
-              interval: 0, //轴显示所有的数据
+              // interval: 0, //轴显示所有的数据
             },
           },
         ],
@@ -232,7 +232,7 @@ export default {
             // name: "出库量",
             min: 0,
             max: 25,
-            interval: 5,
+            // interval: 5,
             axisLabel: {
               formatter: "{value} M",
               color: "#FFF",
@@ -244,7 +244,7 @@ export default {
             // name: "入库量",
             min: 0,
             max: 25,
-            interval: 5,
+            // interval: 5,
             axisLabel: {
               show: false,
               formatter: "{value} M",
