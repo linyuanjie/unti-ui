@@ -99,7 +99,7 @@ export default {
             style: {
               text: "暂无数据",
               textAlign: "center",
-              fontSize: 25,
+              fontSize: 20,
               fill: "#fff",
             },
           },
@@ -162,14 +162,14 @@ export default {
           {
             name: "出库量",
             type: "bar",
-            barWidth:'100%',
+            barWidth:'30%',
             itemStyle: { color: "#744ef5" },
             data: outNum,
           },
           {
             name: "入库量",
             type: "bar",
-            barWidth:'100%',
+            barWidth:'30%',
             itemStyle: { color: "#7ac61c" },
             data: inNum,
           },

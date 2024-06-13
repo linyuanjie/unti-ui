@@ -77,7 +77,6 @@ export default {
   background-size: cover;
 }
 .title {
-  font-size: 20px;
   padding-left: 0px;
 }
 .tabledev {
