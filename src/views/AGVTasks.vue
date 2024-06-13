@@ -52,18 +52,18 @@ export default {
     console.log(this.jsonData, "jsonData");
     this.jsonData.forEach((item) => {
       if (item.reportname == "AGV任务图") {
-        this.arrlist = item.datas.split(",");
+        this.arrlist = item.datas;
       }
     });
     this.callGrpcService();
-    // setInterval(this.callGrpcService, 10000);
+    setInterval(this.callGrpcService, 10000);
   },
   methods: {
     callGrpcService() {
       const request = new CountRequest();
-      request.setWorkflownum(this.jsonData[0].sceneName);
-      request.serializeBinary("");
-      // request.setRegion("1");
+      request.setWorkflownum(this.jsonData[1].sceneName);
+      request.setNum(this.jsonData[1].datas);
+      request.setCounttype("1");
       const client = new GreeterClient("http://localhost:5001", null, null);
       client.countAgv(request, {}, (err, response) => {
         if (err) {
@@ -89,17 +89,7 @@ export default {
             }
             item["batterylevel"] = item["batterylevel"] || "--";
           });
-          if (this.arrlist.length > 0) {
-            this.arrlist.forEach((vv) => {
-              gridPointData.resultsList.forEach((item) => {
-                if (vv == item["agvname"]) {
-                  this.agvTaskResults.push(item);
-                }
-              });
-            });
-          } else {
-            this.agvTaskResults = gridPointData.resultsList;
-          }
+          this.agvTaskResults = gridPointData.resultsList;
           console.log("response.toObject:", this.agvTaskResults);
         }
       });
@@ -122,10 +112,10 @@ export default {
   color: aliceblue;
 }
 .theadcss {
-  font-size: 25px;
+  font-size: 18px;
   color: #6ed6fb;
 }
 tbody {
-  font-size: 20px;
+  font-size: 18px;
 }
 </style>

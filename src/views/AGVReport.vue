@@ -35,7 +35,7 @@ export default {
     console.log(this.jsonData, "jsonData");
     this.jsonData.forEach((item) => {
       if (item.reportname == "AGV稼动率") {
-        this.arrlist = item.datas && item.datas.split(",");
+        this.arrlist = item.datas;
       }
     });
     this.callGrpcService();
@@ -45,26 +45,16 @@ export default {
     callGrpcService() {
       this.agvTaskResults = [];
       const request = new CountRequest();
-      request.setWorkflownum("AGV_1_001");
-      request.serializeBinary("");
-      // request.setRegion("1");
+      request.setWorkflownum(this.jsonData[0].sceneName);
+      request.setNum(this.jsonData[0].datas);
+      request.setCounttype("1");
       const client = new GreeterClient("http://localhost:5001", null, null);
       client.countAgv(request, {}, (err, response) => {
         if (err) {
           console.error("Error:", err.message);
         } else {
           let gridPointData = JSON.parse(JSON.stringify(response.toObject()));
-          if (this.arrlist.length > 0) {
-            this.arrlist.forEach((vv) => {
-              gridPointData.resultsList.forEach((item) => {
-                if (vv == item["agvname"]) {
-                  this.agvTaskResults.push(item);
-                }
-              });
-            });
-          } else {
-            this.agvTaskResults = gridPointData.resultsList;
-          }
+          this.agvTaskResults = gridPointData.resultsList;
           console.log("response.toObject:", response.toObject());
           this.getEchartData();
         }
@@ -95,7 +85,7 @@ export default {
             style: {
               text: "暂无数据",
               textAlign: "center",
-              fontSize: 25,
+              fontSize: 20,
               fill: "#fff",
             },
           },
@@ -106,7 +96,7 @@ export default {
             type: "category",
             data: xdata,
             axisLabel: {
-              fontSize: 25,
+             fontSize: 18,
               color: "#FFF",
               // interval: 0,
               // rotate: "40",
@@ -117,7 +107,7 @@ export default {
           {
             type: "value",
             axisLabel: {
-              fontSize: 25,
+             fontSize: 18,
               color: "#FFF",
             },
           },
@@ -126,7 +116,7 @@ export default {
           {
             data: sdata,
             type: "bar",
-            barWidth: "40%",
+            // barWidth: "40%",
           },
         ],
       };

@@ -20,14 +20,21 @@ export default {
     return {
       agvTaskResults: [],
       arrlist: [],
+      domdev: {},
+      myChart: {},
     };
   },
   mounted() {
+    this.domdev = this.$refs.chart;
+    this.myChart = echarts.init(this.domdev, null, {
+      renderer: "canvas",
+      useDirtyRect: false,
+    });
     this.jsonData = window.ReportData;
     console.log(this.jsonData, "jsonData");
     this.jsonData.forEach((item) => {
       if (item.reportname == "仓库出入库曲线") {
-        this.arrlist = item.datas.split(",");
+        this.arrlist = item.datas;
       }
     });
     this.callGrpcService();
@@ -35,28 +42,18 @@ export default {
   },
   methods: {
     callGrpcService() {
+      this.agvTaskResults = [];
       const request = new CountRequest();
-      request.setWorkflownum(this.jsonData[0].sceneName);
-      request.setNum("");
-      request.serializeBinary("");
+      request.setWorkflownum(this.jsonData[2].sceneName);
+      request.setNum(this.jsonData[2].datas);
+      request.setCounttype("1");
       const client = new GreeterClient("http://localhost:5001", null, null);
       client.countWarehouse(request, {}, (err, response) => {
         if (err) {
           console.error("Error:", err.message);
         } else {
           let gridPointData = JSON.parse(JSON.stringify(response.toObject()));
-          // if (this.arrlist.length > 0) {
-          //   this.arrlist.forEach((vv) => {
-          //     gridPointData.resultsList.forEach((item) => {
-          //       if (vv == item["name"]) {
-          //         this.agvTaskResults.push(item);
-          //       }
-          //     });
-          //   });
-          // } else {
-            this.agvTaskResults = gridPointData.resultsList;
-          // }
-          this.agvTaskResults.forEach((item) => {
+          gridPointData.resultsList.forEach((item) => {
             item["name"] = item["name"] || 0;
             item["totalcapacity"] = item["totalcapacity"] || 0;
             item["usedstorage"] = item["usedstorage"] || 0;
@@ -80,11 +77,6 @@ export default {
         outdata.push(element["outboundquantity"]);
         indata.push(element["inboundquantity"]);
         rongdata.push(element["totalcapacity"]);
-      });
-      var dom = this.$refs.chart;
-      var myChart = echarts.init(dom, null, {
-        renderer: "canvas",
-        useDirtyRect: false,
       });
       var option;
       option = {
@@ -113,7 +105,7 @@ export default {
             },
             axisLabel: {
               color: "#FFF",
-              fontSize: 25,
+              fontSize: 18,
             },
           },
         ],
@@ -124,7 +116,7 @@ export default {
             axisLabel: {
               // formatter: "{value} ml",
               color: "#FFF",
-              fontSize: 25,
+              fontSize: 18,
             },
           },
           {
@@ -133,7 +125,7 @@ export default {
             axisLabel: {
               // formatter: "{value} °C",
               color: "#FFF",
-              fontSize: 25,
+              fontSize: 18,
             },
           },
         ],
@@ -181,9 +173,9 @@ export default {
         ],
       };
       if (option && typeof option === "object") {
-        myChart.setOption(option);
+        this.myChart.setOption(option);
       }
-      window.addEventListener("resize", myChart.resize);
+      window.addEventListener("resize", this.myChart.resize);
     },
   },
 };

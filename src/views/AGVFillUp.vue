@@ -34,7 +34,7 @@ export default {
     console.log(this.jsonData, "jsonData");
     this.jsonData.forEach((item) => {
       if (item.reportname == "仓库空置率") {
-        this.arrlist = item.datas.split(",");
+        this.arrlist = item.datas;
       }
     });
     this.callGrpcService();
@@ -43,24 +43,15 @@ export default {
   methods: {
     callGrpcService() {
       const request = new CountRequest();
-      request.setWorkflownum(this.jsonData[0].sceneName);
-      request.setNum("");
-      request.serializeBinary("");
+      request.setWorkflownum(this.jsonData[3].sceneName);
+      request.setNum(this.jsonData[3].datas);
+      request.setCounttype("1");
       const client = new GreeterClient("http://localhost:5001", null, null);
       client.countWarehouse(request, {}, (err, response) => {
         if (err) {
           console.error("Error:", err.message);
         } else {
           let gridPointData = JSON.parse(JSON.stringify(response.toObject()));
-          if (this.arrlist.length > 0) {
-            this.arrlist.forEach((vv) => {
-              gridPointData.resultsList.forEach((item) => {
-                if (vv == item["name"]) {
-                  this.agvTaskResults.push(item);
-                }
-              });
-            });
-          }
           if (this.agvTaskResults.length == 0) {
             this.agvTaskResults = gridPointData.resultsList;
             this.agvTaskResults.forEach((parent) => {
@@ -143,7 +134,7 @@ export default {
           boundaryGap: false,
           axisLabel: {
             color: "#FFF",
-            fontSize: 25,
+            fontSize: 18,
           },
           data: ["10min", "20min", "30min", "40min", "50min", "60min"],
         },
@@ -151,7 +142,7 @@ export default {
           type: "value",
           axisLabel: {
             color: "#FFF",
-            fontSize: 25,
+            fontSize: 18,
           },
         },
         series: sdata,
