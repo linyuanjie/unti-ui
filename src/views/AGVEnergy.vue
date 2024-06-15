@@ -137,7 +137,7 @@ export default {
           // boundaryGap: false,
           axisLabel: {
             color: "#FFF",
-            fontSize: 18,
+            fontSize: 15,
           },
           data: ["10min", "20min", "30min", "40min", "50min", "60min"],
         },
@@ -145,7 +145,7 @@ export default {
           type: "value",
           axisLabel: {
             color: "#FFF",
-            fontSize: 18,
+            fontSize: 15,
           },
         },
         series: sdata,

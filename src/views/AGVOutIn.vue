@@ -105,7 +105,7 @@ export default {
             },
             axisLabel: {
               color: "#FFF",
-              fontSize: 18,
+              fontSize: 15,
             },
           },
         ],
@@ -116,7 +116,7 @@ export default {
             axisLabel: {
               // formatter: "{value} ml",
               color: "#FFF",
-              fontSize: 18,
+              fontSize: 15,
             },
           },
           {
@@ -125,7 +125,7 @@ export default {
             axisLabel: {
               // formatter: "{value} °C",
               color: "#FFF",
-              fontSize: 18,
+              fontSize: 15,
             },
           },
         ],

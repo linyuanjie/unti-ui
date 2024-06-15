@@ -96,7 +96,7 @@ export default {
             type: "category",
             data: xdata,
             axisLabel: {
-             fontSize: 18,
+             fontSize: 15,
               color: "#FFF",
               // interval: 0,
               // rotate: "40",
@@ -107,7 +107,7 @@ export default {
           {
             type: "value",
             axisLabel: {
-             fontSize: 18,
+             fontSize: 15,
               color: "#FFF",
             },
           },
