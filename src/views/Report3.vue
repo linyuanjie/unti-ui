@@ -178,7 +178,7 @@ export default {
             type: "line",
             smooth: true,
             itemStyle: { color: "#fdad34" },
-            // yAxisIndex: 1,
+            yAxisIndex: 0,
             // tooltip: {
             //   valueFormatter: function (value) {
             //     return value + " °C";
@@ -190,7 +190,7 @@ export default {
             name: "入库流量",
             type: "line",
             smooth: true,
-            // yAxisIndex: 1,
+            yAxisIndex: 0,
             itemStyle: { color: "#00d7f2" },
             // tooltip: {
             //   valueFormatter: function (value) {
@@ -203,6 +203,7 @@ export default {
             name: "出库量",
             type: "bar",
             barWidth: "30%",
+            yAxisIndex: 1,
             itemStyle: { color: "#744ef5" },
             data: outNum,
           },
