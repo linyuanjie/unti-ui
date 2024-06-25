@@ -53,10 +53,10 @@ export default {
     },
     getEchartData() {
       let yLine = [];
-      let outLiu = [];//出库流量
-      let inLiu = [];//入库流量
-      let outNum = [];//出库量
-      let inNum = [];//入库量
+      let outLiu = []; //出库流量
+      let inLiu = []; //入库流量
+      let outNum = []; //出库量
+      let inNum = []; //入库量
       this.agvTaskResults.stockmovementresultsList.forEach((item, index) => {
         yLine.push(item["hour"]);
         outLiu.push(item["outstockcount"]);
@@ -140,15 +140,22 @@ export default {
               fontSize: 20,
               color: "#FFF",
             },
-          },
-          {
-            type: "value",
-            // name: "出库流量",
-            axisLabel: {
-              fontSize: 20,
-              color: "#FFF",
+            // 设置第一个 Y 轴的分割线颜色
+            splitLine: {
+              lineStyle: {
+                color: "#FFF", // 横线颜色
+                // type: "solid", // 线的类型，默认为实线
+              },
             },
           },
+          // {
+          //   type: "value",
+          //   // name: "出库流量",
+          //   axisLabel: {
+          //     fontSize: 20,
+          //     color: "#FFF",
+          //   },
+          // },
           {
             type: "value",
             // name: "入库流量",
@@ -156,29 +163,22 @@ export default {
               fontSize: 20,
               color: "#FFF",
             },
+            // 设置第二个 Y 轴的分割线颜色
+            splitLine: {
+              lineStyle: {
+                color: "#e3e8ec", // 横线颜色
+                type: "dashed", // 线的类型，这里设置为虚线
+              },
+            },
           },
         ],
         series: [
-          {
-            name: "出库量",
-            type: "bar",
-            barWidth:'30%',
-            itemStyle: { color: "#744ef5" },
-            data: outNum,
-          },
-          {
-            name: "入库量",
-            type: "bar",
-            barWidth:'30%',
-            itemStyle: { color: "#7ac61c" },
-            data: inNum,
-          },
           {
             name: "出库流量",
             type: "line",
             smooth: true,
             itemStyle: { color: "#fdad34" },
-            yAxisIndex: 1,
+            // yAxisIndex: 1,
             // tooltip: {
             //   valueFormatter: function (value) {
             //     return value + " °C";
@@ -190,7 +190,7 @@ export default {
             name: "入库流量",
             type: "line",
             smooth: true,
-            yAxisIndex: 1,
+            // yAxisIndex: 1,
             itemStyle: { color: "#00d7f2" },
             // tooltip: {
             //   valueFormatter: function (value) {
@@ -198,6 +198,21 @@ export default {
             //   },
             // },
             data: inLiu,
+          },
+          {
+            name: "出库量",
+            type: "bar",
+            barWidth: "30%",
+            itemStyle: { color: "#744ef5" },
+            data: outNum,
+          },
+          {
+            name: "入库量",
+            type: "bar",
+            barWidth: "30%",
+            yAxisIndex: 1,
+            itemStyle: { color: "#7ac61c" },
+            data: inNum,
           },
         ],
       };
